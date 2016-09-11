@@ -22,27 +22,21 @@
 + 聊天窗口界面
 + 使用百度语音API进行语音识别
 + 使用图灵机器人API进行基本的对话
++ 将对话记录进行存储
 
 #### 未实现
 
-+ 将对话记录进行存储
 + 设置界面及其对应的功能
 + 快递查询功能
 + 等等……
 
 ## 三、使用截图
 
-<ul>
-  <li style="float:left;margin-right:180px;">
-    <span>天气查询与笑话</span><br>
-    <img src="./screenshots/3.png" alt="天气查询" width="300">
-  </li>
-  <li style="float:left;">
-    <span>英语翻译</span><br>
-    <img src="./screenshots/2.png" alt="英语翻译" width="300">
-  </li>
-  <li style="float:left;margin-top:20px;">
-    <span>语音识别</span><br>
-    <img src="./screenshots/1.png" alt="语音识别" width="300">
-  </li>
-</ul>
++ 天气查询与笑话  
+<img src="./screenshots/3.png" alt="天气查询" width="300">
+
++ 英语翻译  
+<img src="./screenshots/2.png" alt="英语翻译" width="300">
+
++ 语音识别  
+<img src="./screenshots/1.png" alt="语音识别" width="300">
