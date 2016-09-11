@@ -6,16 +6,34 @@ import {
   View,
   ToastAndroid,
   Image,
+  AsyncStorage,
+  TouchableOpacity,
+  ListView
 } from 'react-native';
 
+import DeviceInfo from 'react-native-device-info';
 import SplashScreen from 'rn-splash-screen';
-import Chat from './component/Chat';
+import Storage from 'react-native-storage';
 
-import { Container, Content, Button } from 'native-base';
+import Chat from './component/Chat';
+import Test from './component/Test';
+
+import md5 from 'md5';
+
+import Config from './component/Config';
 
 class VoiceMachine extends Component {
   constructor(props){
     super(props);
+
+    this.state = {};
+
+    // 设备ID
+    this.deviceId = DeviceInfo.getUniqueID();
+  }
+
+  componentWillMount(){
+
   }
 
   componentDidMount(){
@@ -24,7 +42,9 @@ class VoiceMachine extends Component {
 
   render() {
     return (
-      <Chat />
+      <Chat
+        deviceId={this.deviceId}
+      />
     );
   }
 }
