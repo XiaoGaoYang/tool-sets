@@ -81,8 +81,7 @@ export default class CustomActions extends React.Component {
   render() {
     return (
       <TouchableOpacity
-        style={[styles.container, this.props.containerStyle]}
-        onPress={this.onActionsPress}>
+        style={[styles.container, this.props.containerStyle]}>
         {this.renderIcon()}
       </TouchableOpacity>
     );

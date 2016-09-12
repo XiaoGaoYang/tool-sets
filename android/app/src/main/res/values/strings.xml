@@ -1,5 +1,3 @@
 <resources>
-
-
-    <string name="app_name">VoiceMachine</string>
+    <string name="app_name">语音机器人</string>
 </resources>

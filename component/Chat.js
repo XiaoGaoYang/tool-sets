@@ -94,7 +94,8 @@ export default class Chat extends Component {
 
   // 保存初始数据
   initialRecord(){
-    storage.save({
+    // 初始数据
+    let iData = {
       key:'oldMessages',
       id: this.countRecord++,
       rawData:{
@@ -108,6 +109,11 @@ export default class Chat extends Component {
         }
       },
       expires:null
+    };
+
+    storage.save(iData);
+    this.setState({
+      messages:[iData.rawData]
     });
   }
 
