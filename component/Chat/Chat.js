@@ -9,18 +9,19 @@ import {
   Image,
   Clipboard,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  Navigator
 } from 'react-native';
 
 import { GiftedChat,Actions,Bubble,InputToolbar } from 'react-native-gifted-chat';
 import Storage from 'react-native-storage';
 
-import NetUtil from './NetUtil';
-import Setting from './Setting';
-import Config from './Config';
+import Config from '../Config';
+import NetUtil from '../NetUtil';
+import NavBar from '../NavBar/NavBar';
 
+import Setting from './Setting';
 import CustomActions from './CustomActions';
-import CustomNavBar from './CustomNavBar';
 import CustomMessage from './CustomMessage';
 
 export default class Chat extends Component {
@@ -39,6 +40,9 @@ export default class Chat extends Component {
     this.onSend = this.onSend.bind(this);
     this.onReceive = this.onReceive.bind(this);
     this.onLongPress = this.onLongPress.bind(this);
+
+    this.onNavLeftButtonPress = this.onNavLeftButtonPress.bind(this);
+    this.onNavRightButtonPress = this.onNavRightButtonPress.bind(this);
     
     // 渲染函数
     this.renderFooter = this.renderFooter.bind(this);
@@ -55,9 +59,21 @@ export default class Chat extends Component {
 
   }
 
+  // 继承静态方法
+  renderNavigationBar(props){
+    // console.log(props);
+    return (
+      <CustomNavBar { ...props } />
+    );
+  }
+
   componentWillMount() {
     this._isMounted = true;
     this.onLoadEarlier();
+  }
+
+  componentDidMount(){
+    console.log('chat did mount');
   }
 
   componentWillUnmount(){
@@ -77,13 +93,13 @@ export default class Chat extends Component {
     // storage.clearMap();
 
     storage.getAllDataForKey('oldMessages').then(messages => {
-      console.log(messages);
+      // console.log(messages);
       if(messages.length === 0){
-        console.log('没读到历史数据');
+        // console.log('没读到历史数据');
         this.countRecord = 0;
         this.initialRecord();
       }else{
-        console.log('读到历史数据');
+        // console.log('读到历史数据');
         this.countRecord = messages.length;
         this.setState({
           messages: messages
@@ -215,6 +231,21 @@ export default class Chat extends Component {
     }
   }
 
+  // 导航栏返回按钮点击
+  onNavLeftButtonPress(){
+    const navigator = this.props.navigator;
+    console.log(navigator.getCurrentRoutes());
+    if(navigator){
+      const routes = navigator.getCurrentRoutes();
+      navigator.jumpTo(routes[0]);
+    }
+  }
+
+  // 导航栏设置按钮点击
+  onNavRightButtonPress(){
+    alert('setting');
+  }
+
   // 在底部渲染文字
   renderFooter(props) {
     if (this.state.typingText) {
@@ -251,7 +282,7 @@ export default class Chat extends Component {
         // composerHeight={30}
         label="发送"
         textInputProps={{
-          autoFocus:true 
+          // autoFocus:true 
         }}
         textInputStyle={{
           textAlign: "left",
@@ -282,7 +313,13 @@ export default class Chat extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <CustomNavBar { ...this.props } />
+        <NavBar
+          leftText={"返回"}
+          rightText={"设置"}
+          title={Config.robot.name}
+          onLeftPress={this.onNavLeftButtonPress}
+          onRightPress={this.onNavRightButtonPress}
+        />
         <GiftedChat
           messages={this.state.messages}
           locale={"zh-cn"}
@@ -312,6 +349,7 @@ export default class Chat extends Component {
 const styles = StyleSheet.create({
   container: {
     flex:1,
+    backgroundColor:'#ffffff'
   },
   footerContainer: {
     marginTop: 5,
