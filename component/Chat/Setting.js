@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet,View,Text } from 'react-native';
+import { Container, Content, Button } from 'native-base';
 
-import { Actions } from 'react-native-router-flux';
+import NavBar from '../NavBar/NavBar';
 
 export default class Setting extends Component {
   constructor(props){
@@ -21,54 +22,36 @@ export default class Setting extends Component {
 
   render() {
     return (
-      <View>
-        <NavBar style={styles}>
-
-          <NavButton style={styles.navButtonLeft} onPress={this.onReturn}>
-            <NavButtonText style={styles.buttonText}>
-              {"返回"}
-            </NavButtonText>
-          </NavButton>
-
-          <NavTitle style={styles.title}>
-            {"语音机器人"}
-          </NavTitle>
-
-          <NavButton>
-            <NavButtonText style={styles.buttonText}>
-              {"设置"}
-            </NavButtonText>
-          </NavButton>
-
-        </NavBar>
-
-        <View style={styles.text}>
-          <Text>Text</Text>
-        </View>
-        
-      </View>
+      <Container style={styles.container}>
+        <Content>
+          <NavBar
+            title={"设置"}
+            leftText={"返回"}
+            onLeftPress={this.onReturn}
+          />
+          <Button block danger
+            style={[styles.button,styles.buttonMarginTop]}
+            onPress={this.props.onClean}>
+            删除对话记录
+          </Button>
+        </Content>
+      </Container>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  statusBar: {
-    backgroundColor: 'red',
+  container: {
+    flex:1,
+    backgroundColor:'#ffffff'
   },
-  navBar: {
-    backgroundColor: 'red',
+  buttonMarginTop: {
+    marginTop:10,
   },
-  title: {
-    color: '#rgba(0, 0, 0, 0.65)',
-  },
-  buttonText: {
-    color: '#rgba(0, 0, 0, 0.45)',
-  },
-  navButtonLeft: {
-    marginLeft:0,
-  },
-  text: {
-    height: 600,
-    backgroundColor: 'blue',
+  button: {
+    marginTop: 0,
+    marginBottom: 0,
+    marginLeft: 8,
+    marginRight: 8
   }
 });

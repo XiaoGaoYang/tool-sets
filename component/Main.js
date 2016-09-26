@@ -10,59 +10,49 @@ import { Container, Content, List, ListItem, Text, Thumbnail } from 'native-base
 
 import NavBar from './NavBar/NavBar';
 import Chat from './Chat/Chat';
+import FastMail from './FastMail/FastMail';
+
+import Config from './Config';
 
 export default class Main extends Component {
   constructor(props){
     super(props);
   }
 
-  onNavLeftButtonPress(){
-    alert('left');
-  }
-
-  onNavRightButtonPress(){
-    alert('right');
-  }
-
-  componentWillMount(){
-    console.log('main will mount');
+  componentDidMount(){
+    console.log('Main did mount');
   }
 
   onChat(){
     const navigator = this.props.navigator;
     if(navigator){
-      const routes = navigator.getCurrentRoutes();
-      navigator.jumpTo(routes[1]);
+      navigator.push({
+        name: 'Chat',
+        component: Chat
+      });
     }
   }
 
   // 快递查询
   onFastMail(){
-    // const navigator = this.props.navigator;
-    // if(navigator){
-    //   navigator.push({
-    //     name: 'Chat',
-    //     component: Chat
-    //   });
-    // }
-    alert('ss');
+    const navigator = this.props.navigator;
+    if(navigator){
+      navigator.push({
+        name: 'FastMail',
+        component: FastMail
+      });
+    }
   }
 
   render(){
     return(
       <Container>
         <Content>
-          <NavBar
-            // leftText={"返回"}
-            title={"功能选择"}
-            // rightText={"设置"}
-            // onLeftPress={ this.onNavLeftButtonPress.bind(this) }
-            // onRightPress={ this.onNavRightButtonPress.bind(this) }
-          />
+          <NavBar title={"功能选择"} />
           <List>
             <ListItem button onPress={this.onChat.bind(this)}>
               <Thumbnail source={require('./img/avatar.png')} />
-              <Text>语音机器人</Text>
+              <Text>{ Config.robot.name }</Text>
             </ListItem>
             <ListItem button onPress={this.onFastMail.bind(this)}>
               <Thumbnail source={require('./img/user_avatar.png')} />

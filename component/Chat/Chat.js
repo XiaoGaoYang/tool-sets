@@ -41,8 +41,9 @@ export default class Chat extends Component {
     this.onReceive = this.onReceive.bind(this);
     this.onLongPress = this.onLongPress.bind(this);
 
-    this.onNavLeftButtonPress = this.onNavLeftButtonPress.bind(this);
-    this.onNavRightButtonPress = this.onNavRightButtonPress.bind(this);
+    this.onReturn = this.onReturn.bind(this);
+    this.onSetting = this.onSetting.bind(this);
+    this.onClean = this.onClean.bind(this);
     
     // 渲染函数
     this.renderFooter = this.renderFooter.bind(this);
@@ -59,21 +60,13 @@ export default class Chat extends Component {
 
   }
 
-  // 继承静态方法
-  renderNavigationBar(props){
-    // console.log(props);
-    return (
-      <CustomNavBar { ...props } />
-    );
-  }
-
   componentWillMount() {
     this._isMounted = true;
     this.onLoadEarlier();
   }
 
   componentDidMount(){
-    console.log('chat did mount');
+    console.log('Chat did mount');
   }
 
   componentWillUnmount(){
@@ -232,18 +225,32 @@ export default class Chat extends Component {
   }
 
   // 导航栏返回按钮点击
-  onNavLeftButtonPress(){
+  onReturn(){
     const navigator = this.props.navigator;
-    console.log(navigator.getCurrentRoutes());
     if(navigator){
-      const routes = navigator.getCurrentRoutes();
-      navigator.jumpTo(routes[0]);
+      navigator.pop();
     }
   }
 
   // 导航栏设置按钮点击
-  onNavRightButtonPress(){
-    alert('setting');
+  onSetting(){
+    const navigator = this.props.navigator;
+    if(navigator){
+      navigator.push({
+        name: 'Setting',
+        component: Setting,
+        params: {
+          onClean: this.onClean, 
+        }
+      });
+    }
+  }
+
+  // 清除历史记录
+  onClean(){
+    storage.clearMapForKey('oldMessages');
+    this.initialRecord();
+    ToastAndroid.show('对话记录清除成功',500);
   }
 
   // 在底部渲染文字
@@ -317,8 +324,8 @@ export default class Chat extends Component {
           leftText={"返回"}
           rightText={"设置"}
           title={Config.robot.name}
-          onLeftPress={this.onNavLeftButtonPress}
-          onRightPress={this.onNavRightButtonPress}
+          onLeftPress={this.onReturn}
+          onRightPress={this.onSetting}
         />
         <GiftedChat
           messages={this.state.messages}

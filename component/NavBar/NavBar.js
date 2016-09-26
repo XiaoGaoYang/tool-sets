@@ -11,21 +11,7 @@ import NavTitle from './component/NavTitle';
 export default class NavBar extends Component {
   constructor(props){
     super(props);
-
-    // this.onPressSetting = this.onPressSetting.bind(this);
   }
-
-  /*
-  onPressSetting(){
-    const navigator = this.props.navigator;
-    if(navigator){
-      navigator.push({
-        name: 'Setting',
-        component: Setting
-      });
-    }
-  }
-  */
 
   renderIcon(){
     if(this.props.leftText){
