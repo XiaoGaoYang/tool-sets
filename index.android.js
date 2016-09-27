@@ -20,6 +20,7 @@ import SplashScreen from 'rn-splash-screen';
 import Main from './component/Main';
 import Chat from './component/Chat/Chat';
 import FastMail from './component/FastMail/FastMail';
+import NavBar from './component/NavBar/NavBar';
 
 import Config from './component/Config';
 
@@ -63,7 +64,7 @@ class VoiceMachine extends Component {
       return false;
     }else{
       this.lastBackPressed = Date.now();
-      ToastAndroid.show('再按一次退出应用',500);
+      ToastAndroid.show('再按一次退出应用',ToastAndroid.SHORT);
       return true;
     }
     /*
@@ -107,6 +108,7 @@ class VoiceMachine extends Component {
   render() {
     const routers = [
       { name:'Main',component:Main },
+      { name:'NavBar',component:NavBar }
     ];
     return (
       <Navigator

@@ -31,7 +31,7 @@ export default StyleSheet.create({
     padding: 12,
   },
   navBarButtonAndroid: {
-    // marginLeft: 16,
+    // paddingLeft: 16,
   },
   navBarButtonText: {
     fontSize: 17,

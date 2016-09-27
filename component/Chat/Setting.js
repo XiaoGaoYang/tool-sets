@@ -25,7 +25,7 @@ export default class Setting extends Component {
       <Container style={styles.container}>
         <Content>
           <NavBar
-            title={"设置"}
+            // title={"设置"}
             leftText={"返回"}
             onLeftPress={this.onReturn}
           />

@@ -141,7 +141,7 @@ export default class FastMail extends Component {
         <View>
           <NavBar
               leftText={"返回"}
-              title={"快递查询"}
+              // title={"快递查询"}
               onLeftPress={this.onReturn}
             />
         </View>

@@ -110,7 +110,7 @@ export default class Chat extends Component {
       rawData:{
         _id: Math.round(Math.random() * 1000000),
         text: Config.robot.default,
-        createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+        createdAt: new Date(),
         user: {
           _id: Config.robot.id,
           name: Config.robot.name,
@@ -250,7 +250,7 @@ export default class Chat extends Component {
   onClean(){
     storage.clearMapForKey('oldMessages');
     this.initialRecord();
-    ToastAndroid.show('对话记录清除成功',500);
+    ToastAndroid.show('对话记录清除成功',ToastAndroid.SHORT);
   }
 
   // 在底部渲染文字
@@ -331,7 +331,7 @@ export default class Chat extends Component {
           messages={this.state.messages}
           locale={"zh-cn"}
           placeholder={"输入信息..."}
-          
+            
           onSend={this.onSend}
           onLongPress={this.onLongPress}
 
@@ -344,7 +344,7 @@ export default class Chat extends Component {
           renderFooter={this.renderFooter}
           renderBubble={this.renderBubble}
           renderInputToolbar={this.renderInputToolbar}
-          
+            
           renderActions={this.renderCustomActions}
           renderMessage={this.renderCustomMessage}
         />
