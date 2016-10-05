@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet,View,Text } from 'react-native';
-import { Container, Content, Button } from 'native-base';
-
-import NavBar from '../NavBar/NavBar';
+import { Container, Content, Button,Header,Title,Icon } from 'native-base';
+import Theme from '../NativeBaseTheme';
 
 export default class Setting extends Component {
   constructor(props){
@@ -23,12 +22,13 @@ export default class Setting extends Component {
   render() {
     return (
       <Container style={styles.container}>
+        <Header theme={Theme}>
+          <Button transparent onPress={this.onReturn}>
+            <Icon name="arrow-left" style={{fontSize:21}} />
+          </Button>
+          <Title>设置</Title>
+        </Header>
         <Content>
-          <NavBar
-            // title={"设置"}
-            leftText={"返回"}
-            onLeftPress={this.onReturn}
-          />
           <Button block danger
             style={[styles.button,styles.buttonMarginTop]}
             onPress={this.props.onClean}>

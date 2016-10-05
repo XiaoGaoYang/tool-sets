@@ -4,6 +4,7 @@ import * as Animatable from 'react-native-animatable';
 
 import {
   Container,
+  Header,
   Content,
   Text,
   Input,
@@ -12,18 +13,14 @@ import {
   Button,
   Card,
   CardItem,
-  Spinner
+  Spinner,
+  Title
 } from 'native-base';
-
-// Content = Animatable.createAnimatableComponent(Content);
 
 import DismissKeyboard from 'dismissKeyboard';
 
-import NavBar from '../NavBar/NavBar';
 import Theme from '../NativeBaseTheme';
 import NetUtil from '../NetUtil';
-
-// import TestData from './TestData';
 
 export default class FastMail extends Component {
   constructor(props){
@@ -138,13 +135,12 @@ export default class FastMail extends Component {
   render(){
     return(
       <Container style={styles.container} theme={Theme}>
-        <View>
-          <NavBar
-              leftText={"返回"}
-              // title={"快递查询"}
-              onLeftPress={this.onReturn}
-            />
-        </View>
+        <Header>
+          <Button transparent onPress={this.onReturn}>
+            <Icon name="arrow-left" style={{fontSize:21}} />
+          </Button>
+          <Title>快递查询</Title>
+        </Header>
         <View style={styles.inputContainer}>
           <InputGroup borderType='underline' >
             <Icon name='pencil' style={styles.iconText} />

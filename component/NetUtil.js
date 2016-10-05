@@ -10,14 +10,17 @@ export default class NetUtil extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: 'data=' + data + ''
+      body: data
     };
 
     fetch(url, fetchOptions)
       .then((response) => response.text())
       .then((responseText) => {
         callback(JSON.parse(responseText));
-      }).done();
+      })
+      .catch((err)=>{
+        console.log(err);
+      });
   }
 
   // POST JSON请求

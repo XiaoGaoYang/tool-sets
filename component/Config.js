@@ -11,5 +11,11 @@ module.exports = {
   user:{
     avatar:'http://t.388g.com/uploads/allimg/160830/4-160S0155252-50.jpg',
     name:'用户'
+  },
+
+  // api接口信息
+  api:{
+    // library:'http://192.168.1.110:3000/library'
+    library:'http://119.29.151.160/library',
   }
 };

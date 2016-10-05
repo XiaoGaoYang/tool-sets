@@ -11,7 +11,8 @@ import {
   Navigator,
   BackAndroid,
   Alert,
-  CameraRoll
+  CameraRoll,
+  StatusBar
 } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
@@ -20,7 +21,8 @@ import SplashScreen from 'rn-splash-screen';
 import Main from './component/Main';
 import Chat from './component/Chat/Chat';
 import FastMail from './component/FastMail/FastMail';
-import NavBar from './component/NavBar/NavBar';
+import Library from './component/Library/Library';
+// import NavBar from './component/NavBar/NavBar';
 
 import Config from './component/Config';
 
@@ -108,7 +110,7 @@ class VoiceMachine extends Component {
   render() {
     const routers = [
       { name:'Main',component:Main },
-      { name:'NavBar',component:NavBar }
+      { name:'Library',component:Library }
     ];
     return (
       <Navigator
@@ -118,7 +120,6 @@ class VoiceMachine extends Component {
         onDidFocus={this.onDidFocus}
         ref='nav'
       />
-      
     );
   }
 }

@@ -10,7 +10,7 @@ import {
   Clipboard,
   TouchableOpacity,
   AsyncStorage,
-  Navigator
+  Navigator,
 } from 'react-native';
 
 import { GiftedChat,Actions,Bubble,InputToolbar } from 'react-native-gifted-chat';
@@ -18,11 +18,15 @@ import Storage from 'react-native-storage';
 
 import Config from '../Config';
 import NetUtil from '../NetUtil';
-import NavBar from '../NavBar/NavBar';
+// import NavBar from '../NavBar/NavBar';
 
 import Setting from './Setting';
 import CustomActions from './CustomActions';
 import CustomMessage from './CustomMessage';
+
+import { Header,Title,Button,Icon } from 'native-base';
+
+import Theme from '../NativeBaseTheme';
 
 export default class Chat extends Component {
   constructor(props){
@@ -318,15 +322,18 @@ export default class Chat extends Component {
   }
 
   render() {
+    console.log(Icon);
     return (
       <View style={styles.container}>
-        <NavBar
-          leftText={"返回"}
-          rightText={"设置"}
-          title={Config.robot.name}
-          onLeftPress={this.onReturn}
-          onRightPress={this.onSetting}
-        />
+        <Header theme={Theme}>
+          <Button transparent onPress={this.onReturn}>
+            <Icon name="arrow-left" style={{fontSize:21}} />
+          </Button>
+          <Title style={{alignSelf:'center'}}>{Config.robot.name}</Title>
+          <Button transparent onPress={this.onSetting}>
+            <Icon name="bars" style={{fontSize:21}}></Icon>
+          </Button>
+        </Header>
         <GiftedChat
           messages={this.state.messages}
           locale={"zh-cn"}
