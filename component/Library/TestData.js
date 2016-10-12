@@ -1,3 +1,4 @@
+/*
 module.exports = {
   "totalPage": "30",
   "currentPage": "1",
@@ -163,9 +164,9 @@ module.exports = {
     "cover": "https://img3.doubanio.com/mpic/s3550050.jpg"
   }]
 }
-
+*/
 /* 另一组测试数据
-{
+module.exports = {
   "totalPage": null,
   "currentPage": null,
   "bookList": [{
@@ -211,3 +212,71 @@ module.exports = {
   }]
 }
 */
+
+/* 有无缩略图的测试数据*/
+/*
+module.exports = {
+  "totalPage": null,
+  "currentPage": null,
+  "bookList": [{
+    "detail": "0000806945",
+    "name": "React导学",
+    "author": "(美) Cory Gackenheimer著",
+    "publiser": "人民邮电出版社 2016",
+    "number": "TN929.53/G-449",
+    "type": "中文图书"
+  }, {
+    "detail": "0000718030",
+    "name": "PCB currents : how they flow, how they react",
+    "author": "Brooks, Douglas,",
+    "publiser": "Prentice Hall, 2013.",
+    "number": "TN41/B:873",
+    "type": "西文图书"
+  }, {
+    "detail": "0000794734",
+    "name": "React Native入门与实战",
+    "author": "王利华, 魏晓军, 冯诚祺编著",
+    "publiser": "人民邮电出版社 2016",
+    "number": "TN929.53/W-479",
+    "type": "中文图书",
+    "cover": "https://img3.doubanio.com/mpic/s28369276.jpg"
+  }, {
+    "detail": "0000778406",
+    "name": "React Native : 用JavaScript开发移动应用",
+    "author": "(越) Truong Hoang Dung著",
+    "publiser": "电子工业出版社 2015",
+    "number": "TN929.53/Z-389",
+    "type": "中文图书",
+    "cover": "https://img1.doubanio.com/mpic/s28317428.jpg"
+  }, {
+    "detail": "0000754436",
+    "name": "React:引领未来的用户界面开发框架",
+    "author": "League of extraordinary developers著",
+    "publiser": "电子工业出版社 2015",
+    "number": "TP311.1/C-979",
+    "type": "中文图书",
+    "cover": "https://img1.doubanio.com/mpic/s28061237.jpg"
+  }, {
+    "detail": "0000547320",
+    "name": "有机人名反应:机理及应用:a coollection of detailed mechanisms and synthetic applications",
+    "author": "原著(美) Jie Jack Li",
+    "publiser": "科学出版社 2011",
+    "number": "O621.25/L-370",
+    "type": "中文图书",
+    "cover": "https://img3.doubanio.com/mpic/s18182810.jpg"
+  }, {
+    "detail": "0000582454",
+    "name": "内循环（IC）厌氧反应器处理废纸造纸废水研究.Study on OCC Papermaking Wastewater Treatment by IC React",
+    "author": "谢林著",
+    "publiser": "中国矿业大学 2011",
+    "number": "#/X703.1/X-479",
+    "type": "中文图书"
+  }]
+}
+*/
+
+module.exports = {
+  totalPage: 0,
+  currentPage: 0,
+  bookList: [],
+};

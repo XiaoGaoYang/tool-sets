@@ -13,9 +13,16 @@ module.exports = {
     name:'用户'
   },
 
+  library:{
+    // cover:'http://121.248.104.139:8080/tpl/images/nobook.jpg',// 默认封面
+    cover:'http://images.liqucn.com/h018/h59/img201411041055450585_info300X300.png'
+  },
+
   // api接口信息
   api:{
-    // library:'http://192.168.1.110:3000/library'
-    library:'http://119.29.151.160/library',
+    // 测试用接口
+    library:'http://192.168.1.110:3000/library'
+    // 实际用接口
+    // library:'http://119.29.151.160/library',
   }
 };

@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
-import { StyleSheet,View,TouchableOpacity,ScrollView,TextInput } from 'react-native';
+import { StyleSheet,View,TouchableOpacity,ScrollView,TextInput,Image } from 'react-native';
 import DismissKeyboard from 'dismissKeyboard';
-// import * as Animatable from 'react-native-animatable';
+import * as Animatable from 'react-native-animatable';
 import {
   Container,
   Content,
@@ -28,13 +28,24 @@ import TestData from './TestData';
 export default class Library extends Component {
   constructor(props){
     super(props);
-
+    
     this.state = {
       keyword:'',
       editing:true,
       searching:false,
       searchResult:null,
     };
+    
+
+    // 测试-搜索列表展示页面
+    /*
+    this.state = {
+      keyword:'123',
+      editing:false,
+      searching:false,
+      searchResult:TestData,
+    };
+    */
 
     this.renderRow = this.renderRow.bind(this);
 
@@ -95,6 +106,7 @@ export default class Library extends Component {
     this.setState({
       keyword:'',
       editing:true,
+      searching:false,
     });
     this.refs['input']._textInput.focus();
   }
@@ -114,13 +126,22 @@ export default class Library extends Component {
 
   // 渲染搜素结果
   renderBookList(){
-    if(!this.state.editing && this.state.searchResult && this.state.searchResult.bookList.length){
-      console.log('renderbooklist');
+    // 不在编辑或搜索状态并且有搜索结果了
+    if (!this.state.editing && !this.state.searching && this.state.searchResult) {
+      if(this.state.searchResult.bookList.length === 0){
+        // 搜索结果中没有书籍
+        return (
+          <Animatable.View animation="zoomIn" style={styles.fastMailInfo}>
+            <Image source={require('../img/sorry.png')} />
+            <Text style={styles.resultTitle}>抱歉，没有查到你输入的书名</Text>
+          </Animatable.View>
+        );
+      }
       return (
-          <List
-            dataArray={this.state.searchResult.bookList}
-            renderRow={this.renderRow}>
-          </List>
+        <List
+          dataArray={this.state.searchResult.bookList}
+          renderRow={this.renderRow}>
+        </List>
       );
     }
     return;
@@ -128,9 +149,10 @@ export default class Library extends Component {
 
   renderRow(item){
     console.log('renderRow');
+    const cover = item.cover ? item.cover : Config.library.cover;
     return (
       <ListItem style={styles.bookItem}>
-        <Thumbnail square source={{uri:item.cover}} style={styles.thumbnail}></Thumbnail>
+        <Thumbnail square source={{uri:cover}} style={styles.thumbnail}></Thumbnail>
         <Text numberOfLines={1}>{item.name}</Text>
         <Text note numberOfLines={1}>{item.author}</Text>
         <Text note numberOfLines={1}>{item.publiser}</Text>
@@ -168,7 +190,7 @@ export default class Library extends Component {
       <Container style={styles.container} theme={Theme}>
         <Header searchBar rounded>
           <InputGroup>
-            <Icon name="arrow-left" onPress={this.onReturn} />
+            <Icon name="arrow-left" onPress={this.onReturn} style={{fontSize:21}} />
             <Input
               ref="input"
               placeholder='输入书籍名'
@@ -209,5 +231,19 @@ const styles = StyleSheet.create({
   },
   bookItem:{
     height:113,// 高度113由thumbnail高度95+listItemPadding*2得到
+  },
+  resultTitle: {
+    color: '#cccccc'
+  },
+  fastMailInfo: {
+    'marginTop': 20,
+    'justifyContent': 'center',
+    'alignItems': 'center',
+  },
+  inputgroup: {
+    backgroundColor: 'transparent',
+    borderRadius: 2,
+    borderColor: 'transparent',
+    elevation: 2,
   }
 });
