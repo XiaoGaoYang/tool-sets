@@ -40,8 +40,8 @@ export default class NetUtil extends Component {
         callback(JSON.parse(responseText));
       })
       .catch((error) => {
-        callback({text:'网络有问题，请稍后重试'});
-        console.warn(error);
+        //callback({text:'网络有问题，请稍后重试'});
+        console.log(error);
       }).done();
   }
 

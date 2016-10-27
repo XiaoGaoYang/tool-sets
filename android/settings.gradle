@@ -1,4 +1,4 @@
-rootProject.name = 'VoiceMachine'
+rootProject.name = 'tool-sets'
 
 include ':app'
 include ':rn-splash-screen'

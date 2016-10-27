@@ -6,7 +6,7 @@
 
 #### 方法一
 
-+ 直接安装[打包好的apk文件](https://yunpan.cn/cvKzBmDhKm8yD)(访问密码 **b6d0**)
++ 直接安装[打包好的apk文件](https://yunpan.cn/cvKzBmDhKm8yD)(访问密码 **b6d0**，不是最新版）
 
 #### 方法二
 

@@ -61,16 +61,6 @@ export default class Main extends Component {
     }
   }
 
-  // postJson(url, data, callback)
-  onTestPress(){
-    let qs = {
-      keyword:'html',
-    };
-    NetUtil.postJson('http://192.168.1.110:3000/library',qs,function(data){
-      console.log(data);
-    });
-  }
-
   render(){
     return(
       <View>

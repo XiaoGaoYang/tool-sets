@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { StyleSheet,View,TouchableOpacity,ScrollView,TextInput,Image } from 'react-native';
+import { StyleSheet,View,TouchableOpacity,ScrollView,TextInput,Image,ListView,Dimensions } from 'react-native';
 import DismissKeyboard from 'dismissKeyboard';
 import * as Animatable from 'react-native-animatable';
 import {
@@ -23,8 +23,6 @@ import Config from '../Config';
 
 import TestData from './TestData';
 
-// import Result from './Result';
-
 export default class Library extends Component {
   constructor(props){
     super(props);
@@ -33,17 +31,18 @@ export default class Library extends Component {
       keyword:'',
       editing:true,
       searching:false,
-      searchResult:null,
+      books:null,
+      lastId:'' // 存储当前页最后一本书的id
     };
     
-
     // 测试-搜索列表展示页面
     /*
     this.state = {
-      keyword:'123',
+      keyword:'html',
       editing:false,
       searching:false,
-      searchResult:TestData,
+      books:TestData.books,
+      lastId:'' // 存储当前页最后一本书的id
     };
     */
 
@@ -53,6 +52,7 @@ export default class Library extends Component {
     this.onChangeText = this.onChangeText.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onEndReached = this.onEndReached.bind(this);
   }
 
   // 返回
@@ -70,6 +70,7 @@ export default class Library extends Component {
     this.setState({
       keyword:value,
       editing:true,
+      lastId: '',
     });
   }
 
@@ -80,11 +81,18 @@ export default class Library extends Component {
       searching:true,
       editing:false,
     })
+    let data = {
+      keyword: this.state.keyword,
+      lastId: this.state.lastId ? this.state.lastId : ''
+    };
+    // console.log(data);
     // 实际用
-    NetUtil.postJson(Config.api.library,{keyword:this.state.keyword},(res)=>{
+    
+    NetUtil.postJson(Config.api.library,data,(res)=>{
       this.setState({
-        searchResult:res,
+        books:res.books,
         searching:false,
+        lastId:res.books[res.books.length-1]._id,
       });
     });
     
@@ -111,6 +119,25 @@ export default class Library extends Component {
     this.refs['input']._textInput.focus();
   }
 
+  // 当搜索结果滚动视图滚动到接近底部时
+  onEndReached(){
+    console.log('到底了');
+    /*
+    let data = {
+      keyword: this.state.keyword,
+      lastId: this.state.lastId ? this.state.lastId : ''
+    };
+    console.log(data);
+    NetUtil.postJson(Config.api.library,data,(res)=>{
+      this.setState({
+        books:res.books,
+        searching:false,
+        lastId:res.books[res.books.length-1]._id,
+      });
+    });
+    */
+  }
+
   // 渲染推荐搜索列表
   renderRecom(){
     if(this.state.keyword){
@@ -124,11 +151,12 @@ export default class Library extends Component {
     return;
   }
 
-  // 渲染搜素结果
+  // 渲染搜索结果
   renderBookList(){
+    // console.log(this.state.searchResult,this.state.lastId);
     // 不在编辑或搜索状态并且有搜索结果了
-    if (!this.state.editing && !this.state.searching && this.state.searchResult) {
-      if(this.state.searchResult.bookList.length === 0){
+    if (!this.state.editing && !this.state.searching && this.state.books) {
+      if(this.state.books.length === 0){
         // 搜索结果中没有书籍
         return (
           <Animatable.View animation="zoomIn" style={styles.fastMailInfo}>
@@ -137,11 +165,18 @@ export default class Library extends Component {
           </Animatable.View>
         );
       }
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      const dataSource = ds.cloneWithRows(this.state.books);
+      const h = Dimensions.get('window').height - 70;
       return (
-        <List
-          dataArray={this.state.searchResult.bookList}
+        <ListView style={{height:h}}
+          keyboardDismissMode={'on-drag'}
+          initialListSize={5} // 组件刚挂载时只渲染5行
+          onEndReachedThreshold={200} // 距离底部200像素时触发
+          onEndReached={this.onEndReached}
+          dataSource={dataSource}
           renderRow={this.renderRow}>
-        </List>
+        </ListView>
       );
     }
     return;
@@ -171,7 +206,7 @@ export default class Library extends Component {
   }
 
   renderRecom2(){
-    console.log('render recom2');
+    // console.log('render recom2');
     return (
       <View>
         <List>
@@ -205,9 +240,9 @@ export default class Library extends Component {
         </Header>
         { this.state.searching ? this.renderLoading() : null }
         { this.state.editing ? this.renderRecom2() : null }
-        <Content>
+        <View>
           { this.renderBookList() }
-        </Content>
+        </View>
       </Container>
     );
   }
