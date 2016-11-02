@@ -37,6 +37,7 @@ export default class NetUtil extends Component {
     fetch(url,fetchOptions)
       .then((response) => response.text())
       .then((responseText) => {
+        // console.log(responseText);
         callback(JSON.parse(responseText));
       })
       .catch((error) => {

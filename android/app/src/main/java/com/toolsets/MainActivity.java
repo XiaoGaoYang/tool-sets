@@ -1,4 +1,4 @@
-package com.voicemachine;
+package com.toolsets;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "VoiceMachine";
+        return "toolSets";
     }
 
     @Override

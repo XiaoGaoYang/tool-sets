@@ -28,7 +28,7 @@ import Config from './component/Config';
 
 // import Setting from './component/Chat/Setting';
 
-class VoiceMachine extends Component {
+class toolSets extends Component {
   constructor(props){
     super(props);
 
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('VoiceMachine', () => VoiceMachine);
+AppRegistry.registerComponent('toolSets', () => toolSets);

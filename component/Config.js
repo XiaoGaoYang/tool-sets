@@ -21,8 +21,8 @@ module.exports = {
   // api接口信息
   api:{
     // 测试用接口
-    // library: 'http://192.168.1.110:3000/tool-sets/book/library',
+    library: 'http://192.168.1.110:3000/tool-sets/book/library',
     // 实际用接口
-    library:'http://www.xgy666.com/tool-sets/book/library'
+    // library:'http://www.xgy666.cn/tool-sets/book/library'
   }
 };

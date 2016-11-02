@@ -322,7 +322,6 @@ export default class Chat extends Component {
   }
 
   render() {
-    console.log(Icon);
     return (
       <View style={styles.container}>
         <Header theme={Theme}>

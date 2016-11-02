@@ -63,7 +63,7 @@ export default class Main extends Component {
 
   render(){
     return(
-      <View>
+      <Container>
         <StatusBar backgroundColor="#039BE5" />
         <Header theme={Theme}>
           <Title>功能选择</Title>
@@ -84,7 +84,7 @@ export default class Main extends Component {
             </ListItem>
           </List>
         </Content>
-      </View>
+      </Container>
     );
   }
 }
