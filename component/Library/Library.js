@@ -31,7 +31,8 @@ export default class Library extends Component {
       keyword:'',
       editing:true,
       searching:false,
-      books:null,
+      endReached:false,
+      books:[],
       lastId:'' // 存储当前页最后一本书的id
     };
     
@@ -75,12 +76,14 @@ export default class Library extends Component {
   }
 
   // 搜索
-  onSearch(){
+  onSearch(isFirst = true){
     DismissKeyboard();
-    this.setState({
-      searching:true,
-      editing:false,
-    })
+    if(isFirst){
+      this.setState({
+        searching:true,
+        editing:false,
+      });
+    }
     let data = {
       keyword: this.state.keyword,
       lastId: this.state.lastId ? this.state.lastId : ''
@@ -89,10 +92,19 @@ export default class Library extends Component {
     // 实际用
     
     NetUtil.postJson(Config.api.library,data,(res)=>{
-      this.setState({
-        books:res.books,
-        searching:false,
-        lastId:res.books[res.books.length-1]._id,
+      console.log(res.books);
+      this.setState((prev)=>{
+        if(res.books.length){
+          return {
+            books:[...prev.books,...res.books],
+            searching:false,
+            lastId:res.books[res.books.length-1]._id,
+          }
+        }else{
+          return {
+            endReached: true
+          }
+        }
       });
     });
     
@@ -136,6 +148,9 @@ export default class Library extends Component {
       });
     });
     */
+    // this.onSearch(false);
+
+    this.renderEndReach();
   }
 
   // 渲染推荐搜索列表
@@ -167,7 +182,7 @@ export default class Library extends Component {
       }
       const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       const dataSource = ds.cloneWithRows(this.state.books);
-      const h = Dimensions.get('window').height - 70;
+      const h = Dimensions.get('window').height - 100;
       return (
         <ListView style={{height:h}}
           keyboardDismissMode={'on-drag'}
@@ -220,6 +235,15 @@ export default class Library extends Component {
     );
   }
 
+  renderEndReach(){
+    console.log('end reach');
+    return (
+      <View>
+        <Text>已经没有了</Text>
+      </View>
+    );
+  }
+
   render(){
     return(
       <Container style={styles.container} theme={Theme}>
@@ -242,6 +266,7 @@ export default class Library extends Component {
         { this.state.editing ? this.renderRecom2() : null }
         <View>
           { this.renderBookList() }
+          { this.state.endReached ? this.renderEndReach() : null }
         </View>
       </Container>
     );
